@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .chat-content {
+      padding: 20px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .greeting {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        /*max-width: 600px;*/
+        align-items: center;
+        justify-content: space-between;
+    }
+    .last {
+        margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-content">
+    <div class="container my-4">
+        <div class="greeting mb-5 d-flex">
+            <div class="item image-block me-5">
+                <img src="C:\Users\user\Desktop\Apple-iPhone-16-Pro.jpg" alt="Iphone 16" style="height: 80px">
+                <p><strong>Iphone 16</strong></p>
+            </div>
+            <div class="item row me-5">
+                <button class="btn btn-warning d-flex align-items-center col" style="height: 30px" onclick="decreaseQuantity('quantity', 'price')"><strong>-</strong></button>
+                <p id="quantity" class="col" style="height: 30px"><strong>1</strong></p>
+                <button class="btn btn-warning d-flex align-items-center col" style="height: 30px" onclick="increaseQuantity('quantity', 'price')"><strong>+</strong></button>
+            </div>
+            <div class="item last">
+                <p>price: <strong id="price">1000</strong> $</p>
+            </div>
+        </div>
+        <div class="greeting mb-5 d-flex">
+            <div class="image-block me-5">
+                <img src="C:\Users\user\Desktop\Apple-iPhone-16-Pro.jpg" alt="Iphone 16" style="height: 80px">
+                <p><strong>Iphone 16</strong></p>
+            </div>
+            <div class="row">
+                <button class="btn btn-warning d-flex align-items-center col" style="height: 30px" onclick="decreaseQuantity('quantity_1', 'price_1')"><strong>-</strong></button>
+                <p id="quantity_1" class="col" style="height: 30px"><strong>1</strong></p>
+                <button class="btn btn-warning d-flex align-items-center col" style="height: 30px" onclick="increaseQuantity('quantity_1', 'price_1')"><strong>+</strong></button>
+            </div>
+            <div class="item last">
+                <p>price: <strong id="price_1">1000</strong> $</p>
+            </div>
+        </div>
+        <div class="greeting mb-5 d-flex">
+            <div class="image-block me-5">
+                <img src="C:\Users\user\Desktop\Apple-iPhone-16-Pro.jpg" alt="Iphone 16" style="height: 80px">
+                <p><strong>Iphone 16</strong></p>
+            </div>
+            <div class="row">
+                <button class="btn btn-warning d-flex align-items-center col" style="height: 30px" onclick="decreaseQuantity('quantity_2', 'price_2')"><strong>-</strong></button>
+                <p id="quantity_2" class="col" style="height: 30px"><strong>1</strong></p>
+                <button class="btn btn-warning d-flex align-items-center col" style="height: 30px" onclick="increaseQuantity('quantity_2', 'price_2')"><strong>+</strong></button>
+            </div>
+            <div class="item last">
+                <p>price: <strong id="price_2">1000</strong> $</p>
+            </div>
+        </div>
+        <div class="d-flex" style="justify-content: flex-end">
+            <div class="me-3">
+                <button id="cancelBtn" class="btn btn-danger no-disable"><strong>Cancel</strong></button>
+            </div>
+            <div class="me-3">
+                <button id="confirmBtn" class="btn btn-success mb-2"><strong>Confirm</strong></button>
+                <button id="hiddenBtn" class="btn btn-success no-disable" hidden="until-found"><strong>Order</strong></button>
+            </div>
+            <div class="">
+                <p class="align-items-center">Total: <strong id="total">3000</strong> $</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const realPrice = 1000;
+    let totalPrice = 3000;
+    function increaseQuantity(quantity, price)  {
+        let p = document.getElementById(quantity);
+        let pri = document.getElementById(price);
+        let value = parseInt(p.textContent, 10);
+        value = value + 1;
+        let totalAmount = realPrice * value;
+        p.innerText = value.toString();
+        pri.innerText = totalAmount.toString();
+        calculateAfterIncreaseTotalAmount();
+    }
+
+    function decreaseQuantity(quantity, price)  {
+        let p = document.getElementById(quantity);
+        let pri = document.getElementById(price);
+        let value = parseInt(p.textContent, 10);
+        value = value - 1;
+        let totalAmount = realPrice * value;
+        p.innerText = value.toString();
+        pri.innerText = totalAmount.toString();
+        calculateAfterDecreaseTotalAmount();
+    }
+
+    function calculateAfterIncreaseTotalAmount() {
+        totalPrice = totalPrice + realPrice;
+        let total = document.getElementById("total");
+        total.innerText = totalPrice;
+    }
+
+    function calculateAfterDecreaseTotalAmount() {
+        totalPrice = totalPrice - realPrice;
+        let total = document.getElementById("total");
+        total.innerText = totalPrice;
+    }
+
+    document.getElementById('confirmBtn').addEventListener('click', function () {
+        const buttons = document.querySelectorAll('button');
+
+        buttons.forEach(function (button) {
+            if (!button.classList.contains('no-disable')) {
+                button.disabled = true;
+            }
+        })
+
+        const hiddenButton = document.getElementById('hiddenBtn');
+        hiddenButton.hidden = false;
+        hiddenButton.style.display = 'block';
+    })
+
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+        const buttons = document.querySelectorAll('button');
+
+        buttons.forEach(function (button) {
+            button.disabled = false;
+        })
+
+        const hiddenButton = document.getElementById('hiddenBtn');
+        hiddenButton.hidden = true;
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
