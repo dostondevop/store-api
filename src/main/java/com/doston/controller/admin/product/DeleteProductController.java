@@ -1,7 +1,7 @@
-package com.doston.controller.admin_controller.category_controller;
+package com.doston.controller.admin.product;
 
-import com.doston.dao.CategoryDao;
-import com.doston.service.CategoryService;
+import com.doston.dao.ProductDao;
+import com.doston.service.ProductService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,24 +11,24 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/admin/delete-category")
-public class DeleteCategoryController extends HttpServlet {
-    private CategoryService categoryService;
+@WebServlet("/admin/delete-product")
+public class DeleteProductController extends HttpServlet {
+    private ProductService productService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        this.categoryService = new CategoryService(new CategoryDao());
+        this.productService = new ProductService(new ProductDao());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        categoryService.deleteCategory(Integer.parseInt(id));
-        resp.sendRedirect("/admin/category-list");
+        productService.deleteProduct(Integer.parseInt(id));
+        resp.sendRedirect("/admin/product-list");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        super.doPost(req, resp);
     }
 }

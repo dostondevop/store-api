@@ -1,9 +1,8 @@
-package com.doston.controller.admin_controller.cart_controller;
+package com.doston.controller.admin.cart;
 
-import com.doston.controller.admin_controller.BaseController;
+import com.doston.controller.admin.BaseController;
 import com.doston.dao.CartDao;
 import com.doston.model.Cart;
-import com.doston.model.User;
 import com.doston.service.CartService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.ServletConfig;
@@ -12,7 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,7 +25,7 @@ public class CartController extends HttpServlet implements BaseController {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.cartService = new CartService(new CartDao()); // Prefer Dependency Injection
+        this.cartService = new CartService(new CartDao());
     }
 
     @Override
@@ -40,7 +38,7 @@ public class CartController extends HttpServlet implements BaseController {
                     .map(Object::toString)
                     .map(encodingJson -> {
                         try {
-                            return returnUserFromJson(encodingJson);
+                            return BaseController.super.returnUserFromJson(encodingJson);
                         } catch (JsonProcessingException e) {
                             throw new RuntimeException(e);
                         }

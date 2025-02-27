@@ -1,4 +1,4 @@
-package com.doston.controller.admin_controller.cart_controller;
+package com.doston.controller.admin.cart;
 
 import com.doston.dao.CartDao;
 import com.fasterxml.jackson.databind.ObjectMapper;

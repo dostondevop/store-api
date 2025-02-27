@@ -1,4 +1,4 @@
-package com.doston.controller.admin_controller;
+package com.doston.controller.admin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

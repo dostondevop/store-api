@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
-    private int orderId;
+    private int id;
     private String userName;
     private String userPhoneNumber;
     private String userEmail;
@@ -29,7 +29,7 @@ public class Order {
     private LocalDateTime orderUpdatedDate;
 
     public Order (ResultSet resultSet) throws SQLException {
-        this.orderId = resultSet.getInt("order_id");
+        this.id = resultSet.getInt("order_id");
         this.userName = resultSet.getString("user_name");
         this.userPhoneNumber = resultSet.getString("user_phone_number");
         this.userEmail = resultSet.getString("user_email");
@@ -45,8 +45,8 @@ public class Order {
         this.orderUpdatedDate = resultSet.getObject("order_updated_date", LocalDateTime.class);
     }
 
-    public Order(int orderId, String userName, String promoCodeValue, String orderStatus) {
-        this.orderId = orderId;
+    public Order(int id, String userName, String promoCodeValue, String orderStatus) {
+        this.id = id;
         this.userName = userName;
         this.promoCodeValue = promoCodeValue;
         this.orderStatus = orderStatus;
