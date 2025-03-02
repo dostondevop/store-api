@@ -4,6 +4,9 @@ target
 !**/src/main/**/target/
 !**/src/test/**/target/
 Olcha_Store.iml
+out/artifacts/Store_Web_exploded/META-INF
+out/artifacts/Store_Web_exploded/web
+out/artifacts/Store_Web_exploded/WEB-INF
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
