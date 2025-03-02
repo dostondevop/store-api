@@ -1,4 +1,4 @@
-package com.doston.controller.user_controller.order_controller;
+package com.doston.controller.user.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.doston.dao.CartDao;
@@ -25,13 +25,11 @@ import java.util.List;
 @WebServlet("/user/orders")
 public class UserOrderController extends HttpServlet {
     private CartService cartService;
-    private OrderService orderService;
     private ObjectMapper objectMapper;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.cartService = new CartService(new CartDao());
-        this.orderService = new OrderService(new OrderDao());
         this.objectMapper = new ObjectMapper();
     }
 
@@ -50,7 +48,6 @@ public class UserOrderController extends HttpServlet {
         List<Cart> cartList = cartService.listUserCarts(user.getId());
         OrderRequestWrapper orderRequestWrapper = OrderRequestWrapper.convert(user.getId(), cartList, agree);
         String s = objectMapper.writeValueAsString(orderRequestWrapper);
-        List<Order> order = orderService.createOrder(s);
         removeCartsFromSession(req);
         resp.sendRedirect("/user/order-list");
     }

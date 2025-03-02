@@ -1,6 +1,5 @@
-package com.doston.controller.register_and_login_controller;
+package com.doston.controller.register_and_login;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.doston.dao.UserDao;
 import com.doston.model.User;
@@ -36,33 +35,43 @@ public class LoginController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        User login = userService.login(email, password);
-        addUsernameToCookie(resp, login);
-
-        if (login.getRole().equals(UserRole.ADMIN)) {
-            redirectBySession(req, resp, "/admin/category-list");
-        } else {
-            redirectBySession(req, resp, "/user/category-product");
+        if (email == null || password == null || email.isBlank() || password.isBlank()) {
+            resp.sendRedirect("/login?error=Invalid credentials");
+            return;
         }
+
+        User loginUser = userService.login(email, password);
+        if (loginUser == null) {
+            resp.sendRedirect("/login?error=Invalid credentials");
+            return;
+        }
+
+        addUserToCookie(resp, loginUser);
+        redirectUser(req, resp, loginUser);
     }
 
-    private void redirectBySession(HttpServletRequest req, HttpServletResponse resp, String url) throws IOException {
+    private void redirectUser(HttpServletRequest req, HttpServletResponse resp, User user) throws IOException {
         HttpSession session = req.getSession();
-        Object redirectUrl = session.getAttribute("redirectUrl");
-        if (redirectUrl != null) {
-            resp.sendRedirect((String) redirectUrl);
+        String redirectUrl = (String) session.getAttribute("redirectUrl");
+        session.removeAttribute("redirectUrl");
+
+        if (redirectUrl != null && !redirectUrl.isBlank()) {
+            resp.sendRedirect(redirectUrl);
         } else {
-            resp.sendRedirect(url);
-            session.removeAttribute("redirectUrl");
+            String defaultRedirect = user.getRole() == UserRole.ADMIN ? "/admin/category-list" : "/user/category-product";
+            resp.sendRedirect(defaultRedirect);
         }
     }
 
-    protected void addUsernameToCookie(HttpServletResponse response, User user) throws JsonProcessingException {
+    private void addUserToCookie(HttpServletResponse response, User user) throws IOException {
         String userJson = objectMapper.writeValueAsString(user);
         String encodedJson = URLEncoder.encode(userJson, StandardCharsets.UTF_8);
 
-        Cookie cookie = new Cookie("user", encodedJson);
-        cookie.setMaxAge(3 * 60);
-        response.addCookie(cookie);
+        Cookie userCookie = new Cookie("user", encodedJson);
+        userCookie.setMaxAge(3 * 60);
+        userCookie.setHttpOnly(true);
+        userCookie.setSecure(true);
+
+        response.addCookie(userCookie);
     }
 }

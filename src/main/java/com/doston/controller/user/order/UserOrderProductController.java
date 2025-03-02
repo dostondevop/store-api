@@ -1,4 +1,4 @@
-package com.doston.controller.user_controller.order_controller;
+package com.doston.controller.user.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.doston.dao.ProductDao;

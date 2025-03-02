@@ -4,6 +4,8 @@ import com.doston.dao.UserDao;
 import com.doston.model.User;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class UserService {
     private final UserDao userDao;
@@ -14,5 +16,9 @@ public class UserService {
 
     public User login (String email, String password) {
         return userDao.checkUser(email, password);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 }

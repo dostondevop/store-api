@@ -51,4 +51,8 @@ public class CartService {
             cartDao.updateCart(c.getId(), c.getQuantity());
         });
     }
+
+    public void addToCart(Cart cart) {
+        cartDao.addCart(cart);
+    }
 }

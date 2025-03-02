@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Styled Hover Menu with Subcategories</title>
     <style>
-        /* Main menu container */
         .menu {
             list-style: none;
             padding: 0;
@@ -14,13 +13,11 @@
             background-color: #333;
         }
 
-        /* Top-level menu items */
         .menu > li {
             position: relative;
             margin: 0;
         }
 
-        /* Top-level links styling */
         .menu > li > a {
             display: block;
             padding: 15px 20px;
@@ -34,7 +31,6 @@
             background-color: #555;
         }
 
-        /* Submenu styling */
         .menu li ul {
             display: none;
             position: absolute;
@@ -51,12 +47,10 @@
             display: block;
         }
 
-        /* Submenu items */
         .menu li ul li {
             position: relative;
         }
 
-        /* Links in submenus */
         .menu li ul li a {
             display: block;
             padding: 10px;
@@ -70,7 +64,6 @@
             background-color: #e0e0e0;
         }
 
-        /* Nested submenus for further levels */
         .menu li ul li ul {
             top: 0;
             left: 100%;
@@ -79,7 +72,6 @@
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        /* Arrow indicators for nested menus */
         .menu li ul li:has(ul) > a::after {
             content: "►";
             float: right;

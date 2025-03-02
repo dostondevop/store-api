@@ -1,4 +1,4 @@
-package com.doston.controller.user_controller.main_controller;
+package com.doston.controller.user.main;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
