@@ -13,7 +13,8 @@ Store is a full-featured e-commerce web application built with Java (Jakarta EE)
 Backend: Java (Jakarta EE, Servlets, Filters)<br>
 Frontend: JSP, HTML, CSS<br>
 Database: PostgreSQL<br>
-Dependencies: Jackson, JDBC, Servlet API, Lombok<be>
+Dependencies: Jackson, JDBC, Servlet API, Lombok<br>
+
 <br>
 **Installation & Setup:**<br>
 Clone the repository:<br>
